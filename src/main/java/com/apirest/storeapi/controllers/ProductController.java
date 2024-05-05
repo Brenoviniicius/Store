@@ -4,6 +4,7 @@ import com.apirest.storeapi.models.Product;
 import com.apirest.storeapi.services.ProductRepository;
 import org.hibernate.annotations.processing.Find;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class ProductController {
 
     @GetMapping({"", "/"})
     public String showProductList(Model model) {
-        List<Product> products = repos.findAll();
+        List<Product> products = repos.findAll(Sort.by(Sort.Direction.ASC, "id"));
         model.addAttribute("produtos", products);
         return "produtos/index";
     }
